@@ -22,18 +22,9 @@ import subprocess
 import logging
 import threading
 import time
+import fcntl
 import json
 from pathlib import Path
-from typing import TYPE_CHECKING, Any
-
-# fcntl is Linux-only; guard so Pylance on Windows doesn't flag missing stubs
-fcntl: Any
-if TYPE_CHECKING:
-    import fcntl
-if sys.platform != "win32":
-    import fcntl  # noqa: F811
-else:
-    fcntl = None  # type: ignore[assignment]
 
 # ---------------------------------------------------------------------------
 # Paths
@@ -49,9 +40,7 @@ os.makedirs(TMP_DIR, exist_ok=True)
 
 
 def _truncate_log_file(path: str) -> None:
-    """
-    Truncate a log file if it exists or create it.
-    """
+    """Truncate a log file if it exists, or create it."""
     try:
         with open(path, 'w', encoding='utf-8'):
             pass
@@ -60,22 +49,20 @@ def _truncate_log_file(path: str) -> None:
 
 PID_FILE    = os.path.join(TMP_DIR, 'bot.pid')
 LOCK_FILE   = os.path.join(TMP_DIR, 'bot.lock')
-LIFECYCLE_LOCK_FILE = os.path.join(TMP_DIR, 'lifecycle.lock')
 RESTART_TXT = os.path.join(TMP_DIR, 'restart.txt')
-BOT_LOG_FILE = os.path.join(LOG_DIR, 'bot.log')
-WSGI_LOG_FILE = os.path.join(LOG_DIR, 'wsgi.log')
 
-BOT_RUNNER  = os.path.join(base_dir, 'run_bot.py')
+BOT_RUNNER  = os.path.join(base_dir, 'run_bot.py')   # <-- actual entry point
+STDERR_LOG_FILE = os.path.join(base_dir, 'stderr.log')
 
 # ---------------------------------------------------------------------------
 # Logging
 # ---------------------------------------------------------------------------
-_truncate_log_file(WSGI_LOG_FILE)
+_truncate_log_file(os.path.join(LOG_DIR, 'wsgi.log'))
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler(WSGI_LOG_FILE),
+        logging.FileHandler(os.path.join(LOG_DIR, 'wsgi.log')),
         logging.StreamHandler(sys.stdout),
     ],
 )
@@ -130,52 +117,6 @@ def _release_worker_lock():
     _is_primary_worker = False
 
 
-def _with_lifecycle_lock(func):
-    """
-    Serialize start/stop/restart across all Passenger workers.
-    """
-    if fcntl is None:
-        return func()
-
-    os.makedirs(TMP_DIR, exist_ok=True)
-    with open(LIFECYCLE_LOCK_FILE, 'w') as fh:
-        fcntl.flock(fh, fcntl.LOCK_EX)
-        try:
-            return func()
-        finally:
-            fcntl.flock(fh, fcntl.LOCK_UN)
-
-
-def _truncate_wsgi_log_stream() -> None:
-    """
-    Truncate the active WSGI log stream safely even while handler is open.
-    """
-    root_logger = logging.getLogger()
-    for handler in root_logger.handlers:
-        if isinstance(handler, logging.FileHandler) and getattr(handler, "baseFilename", "") == WSGI_LOG_FILE:
-            try:
-                handler.acquire()
-                if handler.stream:
-                    handler.flush()
-                    handler.stream.seek(0)
-                    handler.stream.truncate()
-                    handler.flush()
-                    return
-            except Exception:
-                pass
-            finally:
-                try:
-                    handler.release()
-                except Exception:
-                    pass
-    _truncate_log_file(WSGI_LOG_FILE)
-
-
-def _clear_runtime_logs() -> None:
-    _truncate_log_file(BOT_LOG_FILE)
-    _truncate_wsgi_log_stream()
-
-
 # ---------------------------------------------------------------------------
 # PID file
 # ---------------------------------------------------------------------------
@@ -210,32 +151,18 @@ def _pid_is_alive(pid: int) -> bool:
         return False
 
 
-def _read_primary_worker_pid() -> int | None:
-    """
-    Read primary worker PID from lock file and verify it is alive.
-    """
-    try:
-        raw = Path(LOCK_FILE).read_text().strip()
-        if not raw:
-            return None
-        pid = int(raw)
-        return pid if _pid_is_alive(pid) else None
-    except Exception:
-        return None
-
-
 # ---------------------------------------------------------------------------
 # Kill ALL surviving bot_runner.py processes (the key fix)
 # ---------------------------------------------------------------------------
 
 def _find_all_bot_pids() -> list[int]:
     """
-    Return all PIDs running bot_runner.py except current worker.
+    Return all PIDs running bot_runner.py (run_bot.py) except current worker.
     Uses pgrep for better cPanel compatibility.
     """
     try:
         result = subprocess.run(
-            ["pgrep", "-f", "python.*run_bot.py"],
+            ["pgrep", "-f", "python.*run_bot.py"],    # <-- matches our runner
             capture_output=True,
             text=True,
         )
@@ -254,14 +181,6 @@ def _find_all_bot_pids() -> list[int]:
         return []
 
 
-def _ensure_no_bot_processes() -> bool:
-    remaining = _find_all_bot_pids()
-    if remaining:
-        logger.error(f"Bot processes still running after kill attempt: {remaining}")
-        return False
-    return True
-
-
 def kill_all_bot_processes():
     """
     Kill every bot_runner.py process before spawning a fresh one.
@@ -277,8 +196,8 @@ def kill_all_bot_processes():
     # Graceful stop
     for pid in pids:
         try:
-            pgid = getattr(os, 'getpgid', lambda p: p)(pid)
-            getattr(os, 'killpg', lambda pg, s: os.kill(pg, s))(pgid, signal.SIGTERM)
+            pgid = os.getpgid(pid)
+            os.killpg(pgid, signal.SIGTERM)
             logger.info(f"SIGTERM -> PID {pid}, PGID {pgid}")
         except Exception:
             try:
@@ -297,12 +216,12 @@ def kill_all_bot_processes():
     remaining = _find_all_bot_pids()
     for pid in remaining:
         try:
-            pgid = getattr(os, 'getpgid', lambda p: p)(pid)
-            getattr(os, 'killpg', lambda pg, s: os.kill(pg, s))(pgid, getattr(signal, 'SIGKILL', 9))
+            pgid = os.getpgid(pid)
+            os.killpg(pgid, signal.SIGKILL)
             logger.warning(f"SIGKILL -> PID {pid}, PGID {pgid}")
         except Exception:
             try:
-                os.kill(pid, getattr(signal, 'SIGKILL', 9))
+                os.kill(pid, signal.SIGKILL)
             except Exception:
                 pass
 
@@ -314,132 +233,58 @@ def kill_all_bot_processes():
 # Bot lifecycle
 # ---------------------------------------------------------------------------
 
-def _cleanup_local_bot_state():
-    global bot_process, bot_process_group_id, bot_log_handle
-    bot_process = None
-    bot_process_group_id = None
-    if bot_log_handle:
-        try:
-            bot_log_handle.close()
-        except Exception:
-            pass
-    bot_log_handle = None
-
-
-def _spawn_bot_subprocess(log_reason: str):
-    global bot_process, bot_process_group_id, bot_log_handle
-    bot_log_handle = open(BOT_LOG_FILE, 'w', encoding='utf-8')
-    bot_process = subprocess.Popen(
-        [sys.executable, BOT_RUNNER],
-        cwd=base_dir,
-        stdout=bot_log_handle,
-        stderr=subprocess.STDOUT,
-        preexec_fn=getattr(os, 'setsid', None),
-    )
-    bot_process_group_id = getattr(os, 'getpgid', lambda p: p)(bot_process.pid)
-    _write_pid(bot_process.pid)
-    logger.info(f"{log_reason} — PID {bot_process.pid}, PGID {bot_process_group_id}")
-    return bot_process
-
-
-def _start_bot_any_worker() -> bool:
-    def _do_start():
-        with _process_lock:
-            status = get_bot_status()
-            if status['running']:
-                logger.info(f"Start skipped: bot already running (PID {status['pid']})")
-                return False
-            try:
-                # Clean slate for stale/orphan bot processes before spawning.
-                kill_all_bot_processes()
-                if not _ensure_no_bot_processes():
-                    return False
-                _cleanup_local_bot_state()
-                _clear_runtime_logs()
-                _spawn_bot_subprocess("Bot started")
-                return True
-            except Exception as e:
-                logger.error(f"Failed to start bot: {e}")
-                _cleanup_local_bot_state()
-                return False
-    return bool(_with_lifecycle_lock(_do_start))
-
-
-def _stop_bot_any_worker() -> bool:
-    def _do_stop():
-        with _process_lock:
-            was_running = bool(get_bot_status()['running'])
-            kill_all_bot_processes()
-            _ensure_no_bot_processes()
-            _cleanup_local_bot_state()
-            return was_running
-    return bool(_with_lifecycle_lock(_do_stop))
-
-
-def _restart_bot_any_worker(reason: str) -> bool:
-    def _do_restart():
-        with _process_lock:
-            logger.info(f"Restarting bot — reason: {reason}")
-            kill_all_bot_processes()
-            if not _ensure_no_bot_processes():
-                return False
-            _cleanup_local_bot_state()
-            time.sleep(1)
-            try:
-                _clear_runtime_logs()
-                _spawn_bot_subprocess("Bot restarted")
-                return True
-            except Exception as e:
-                logger.error(f"Failed to restart bot: {e}")
-                _cleanup_local_bot_state()
-                return False
-    return bool(_with_lifecycle_lock(_do_restart))
-
-
 def start_bot():
-    if not _is_primary_worker:
-        logger.info("start_bot ignored: current worker is not primary")
-        return None
-    return _start_bot_any_worker()
+    global bot_process, bot_process_group_id, bot_log_handle
 
+    # No longer require primary worker – any worker can start the bot
+    # because we kill everything first.
+    with _process_lock:
+        kill_all_bot_processes()
 
-def start_bot_from_request():
-    """
-    Start bot from ANY worker. Needed because Passenger may route the request
-    to a secondary worker.
-    """
-    logger.info(f"HTTP start requested by worker {os.getpid()} (primary={_is_primary_worker})")
-    return _start_bot_any_worker()
+        logger.info("Starting fresh bot process...")
+        try:
+            _truncate_log_file(os.path.join(LOG_DIR, 'bot.log'))
+            bot_log_handle = open(
+                os.path.join(LOG_DIR, 'bot.log'), 'w', encoding='utf-8'
+            )
+            bot_process = subprocess.Popen(
+                [sys.executable, BOT_RUNNER],
+                cwd=base_dir,
+                stdout=bot_log_handle,
+                stderr=subprocess.STDOUT,
+                preexec_fn=os.setsid,
+            )
+            bot_process_group_id = os.getpgid(bot_process.pid)
+            _write_pid(bot_process.pid)
+
+            logger.info(f"Bot started - PID {bot_process.pid}, PGID {bot_process_group_id}")
+            return bot_process
+
+        except Exception as e:
+            logger.error(f"Failed to start bot: {e}")
+            if bot_log_handle:
+                bot_log_handle.close()
+                bot_log_handle = None
+            return None
 
 
 def stop_bot():
-    if not _is_primary_worker:
-        logger.info("stop_bot ignored: current worker is not primary")
-        return
-    _stop_bot_any_worker()
+    global bot_process, bot_process_group_id, bot_log_handle
 
-
-def stop_bot_from_request():
-    """
-    Stop bot from ANY worker.
-    """
-    logger.info(f"HTTP stop requested by worker {os.getpid()} (primary={_is_primary_worker})")
-    return _stop_bot_any_worker()
+    with _process_lock:
+        kill_all_bot_processes()
+        bot_process = None
+        bot_process_group_id = None
+        if bot_log_handle:
+            bot_log_handle.close()
+            bot_log_handle = None
 
 
 def restart_bot(reason: str = "manual"):
-    if not _is_primary_worker:
-        logger.info("restart_bot ignored: current worker is not primary")
-        return None
-    return _restart_bot_any_worker(reason)
-
-
-def restart_bot_from_request(reason: str = "HTTP request"):
-    """
-    Restart bot from ANY worker.
-    """
-    logger.info(f"HTTP restart requested by worker {os.getpid()} (primary={_is_primary_worker})")
-    return _restart_bot_any_worker(reason)
+    logger.info(f"Restarting bot - reason: {reason}")
+    stop_bot()
+    time.sleep(2)
+    return start_bot()
 
 
 def get_bot_status() -> dict:
@@ -449,13 +294,10 @@ def get_bot_status() -> dict:
         running = bot_process.poll() is None
     elif pid:
         running = _pid_is_alive(pid)
-    primary_worker_pid = _read_primary_worker_pid()
     return {
         'running': running,
         'pid': pid,
-        'primary_worker': primary_worker_pid is not None,
-        'primary_worker_pid': primary_worker_pid,
-        'worker_is_primary': _is_primary_worker,
+        'primary_worker': _is_primary_worker,
         'worker_pid': os.getpid(),
     }
 
@@ -481,7 +323,7 @@ def _collect_py_mtimes(directory: str) -> dict:
 def _touch_restart_txt():
     try:
         Path(RESTART_TXT).touch()
-        logger.info("Touched tmp/restart.txt — Passenger will reload on next request")
+        logger.info("Touched tmp/restart.txt - Passenger will reload on next request")
     except Exception as e:
         logger.warning(f"Could not touch restart.txt: {e}")
 
@@ -521,7 +363,7 @@ def _start_file_watcher():
 # ---------------------------------------------------------------------------
 
 def _shutdown(signum, frame):
-    logger.info(f"Signal {signum} — shutting down worker {os.getpid()}")
+    logger.info(f"Signal {signum} - shutting down worker {os.getpid()}")
     stop_bot()
     _release_worker_lock()
     sys.exit(0)
@@ -541,7 +383,7 @@ def _render_dashboard() -> bytes:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>📚 eBook Bot Dashboard</title>
+    <title>Ebook Bot Dashboard</title>
     <style>
         :root {
             color-scheme: dark;
@@ -677,7 +519,7 @@ def _render_dashboard() -> bytes:
     <div class="container">
         <div class="header">
             <div>
-                <div class="brand">📚 eBook Bot Control Panel</div>
+                <div class="brand">Ebook Bot Control Panel</div>
                 <div class="subtitle">Monitor your bot process, manage lifecycle operations, and see live status from the WSGI service.</div>
             </div>
             <div class="actions">
@@ -730,17 +572,19 @@ def _render_dashboard() -> bytes:
                 <button class="button button--ghost tab-button active" data-tab="status" onclick="showTab('status')">Status</button>
                 <button class="button button--ghost tab-button" data-tab="bot-log" onclick="showTab('bot-log')">Bot logs</button>
                 <button class="button button--ghost tab-button" data-tab="wsgi-log" onclick="showTab('wsgi-log')">WSGI logs</button>
+                <button class="button button--ghost tab-button" data-tab="stderr-log" onclick="showTab('stderr-log')">stderr.log</button>
             </div>
             <pre id="status-json" class="log tab-panel" data-panel="status">Loading status…</pre>
             <pre id="bot-log" class="log tab-panel" data-panel="bot-log" style="display:none;">Loading bot logs…</pre>
             <pre id="wsgi-log" class="log tab-panel" data-panel="wsgi-log" style="display:none;">Loading wsgi logs…</pre>
+            <pre id="stderr-log" class="log tab-panel" data-panel="stderr-log" style="display:none;">Loading stderr log…</pre>
         </div>
     </div>
 
     <script>
         let autoRefresh = false;
         let refreshInterval = null;
-        const basePath = window.location.pathname.replace(/[/]ui[/]?$/, '') || '/';
+        const basePath = window.location.pathname.replace(/\/ui\/?$/, '') || '/';
 
         function joinPath(base, suffix) {
             const normalizedBase = base.endsWith('/') ? base.slice(0, -1) : base;
@@ -786,6 +630,7 @@ def _render_dashboard() -> bytes:
         function refreshLogs() {
             fetchBotLog();
             fetchWsgiLog();
+            fetchStderrLog();
         }
 
         function toggleAutoRefresh() {
@@ -811,6 +656,8 @@ def _render_dashboard() -> bytes:
                 fetchBotLog();
             } else if (tabName === 'wsgi-log') {
                 fetchWsgiLog();
+            } else if (tabName === 'stderr-log') {
+                fetchStderrLog();
             }
         }
 
@@ -837,6 +684,19 @@ def _render_dashboard() -> bytes:
                 document.getElementById('status-updated').textContent = 'Last updated: ' + new Date().toLocaleString();
             } catch (error) {
                 document.getElementById('wsgi-log').textContent = 'Unable to fetch wsgi logs. ' + error;
+            }
+        }
+
+        async function fetchStderrLog() {
+            try {
+                const endpoint = joinPath(basePath, '/stderr-log');
+                const res = await fetch(endpoint);
+                if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
+                const text = await res.text();
+                document.getElementById('stderr-log').textContent = text || 'No stderr.log output yet.';
+                document.getElementById('status-updated').textContent = 'Last updated: ' + new Date().toLocaleString();
+            } catch (error) {
+                document.getElementById('stderr-log').textContent = 'Unable to fetch stderr.log. ' + error;
             }
         }
 
@@ -895,27 +755,31 @@ def application(environ, start_response):
         start_response('200 OK', [('Content-Type', 'text/plain; charset=utf-8')])
         return [body]
 
+    if path in ('/stderr-log', '/stderr-log/', '/ui/stderr-log', '/ui/stderr-log/'):
+        try:
+            with open(STDERR_LOG_FILE, 'r', encoding='utf-8', errors='replace') as f:
+                body = f.read().encode('utf-8')
+        except FileNotFoundError:
+            body = b'stderr.log file not found.'
+        except Exception as e:
+            body = f'Error reading stderr.log: {e}'.encode('utf-8')
+        start_response('200 OK', [('Content-Type', 'text/plain; charset=utf-8')])
+        return [body]
+
     if path in ('/start', '/start/', '/ui/start', '/ui/start/') and method == 'POST':
-        started = start_bot_from_request()
+        start_bot()
         start_response('200 OK', [('Content-Type', 'text/plain')])
-        if started:
-            return [b'Bot started']
-        return [b'Bot already running']
+        return [b'Bot start requested']
 
     if path in ('/stop', '/stop/', '/ui/stop', '/ui/stop/') and method == 'POST':
-        was_running = stop_bot_from_request()
+        stop_bot()
         start_response('200 OK', [('Content-Type', 'text/plain')])
-        if was_running:
-            return [b'Bot stopped']
-        return [b'Bot was already stopped']
+        return [b'Bot stop requested']
 
     if path in ('/restart', '/restart/', '/ui/restart', '/ui/restart/') and method == 'POST':
-        restarted = restart_bot_from_request(reason="HTTP request")
-        if restarted:
-            start_response('200 OK', [('Content-Type', 'text/plain')])
-            return [b'Bot restarted']
-        start_response('500 Internal Server Error', [('Content-Type', 'text/plain')])
-        return [b'Bot restart failed']
+        restart_bot(reason="HTTP request")
+        start_response('200 OK', [('Content-Type', 'text/plain')])
+        return [b'Bot restart requested']
 
     # Default
     if _is_primary_worker and not get_bot_status()['running']:
