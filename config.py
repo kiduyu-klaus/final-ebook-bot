@@ -29,7 +29,7 @@ DB_NAME     = os.environ.get("DB_NAME",     "final_klaus_ebooks_library")
 # ── File Server ───────────────────────────────────────────────
 # Absolute server path to the directory containing your EPUBs.
 # On cPanel this is typically: /home/<username>/public_html/kbooks
-EBOOKS_DIR      = "/home1/sflatran/kbooks/public/upload"
+EBOOKS_DIR = "/home1/sflatran/public_html/kbooks/public/upload"
 
 
 

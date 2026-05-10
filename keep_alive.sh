@@ -2,14 +2,14 @@
 # keep_alive.sh  —  Restart bot.py if it is not already running.
 #
 # Schedule this in cPanel → Cron Jobs to run every 5 minutes:
-#   */5 * * * *  /bin/bash /home/yourusername/ebookbot/keep_alive.sh
+#   */5 * * * *  /bin/bash /home1/sflatran/final_ebook_bot/keep_alive.sh
 #
 # The script is idempotent: if the bot is already running it exits silently.
 
-PYTHON="/home/yourusername/virtualenv/ebookbot/3.11/bin/python3"
-SCRIPT="/home/yourusername/ebookbot/bot.py"
-LOGFILE="/home/yourusername/ebookbot/bot.log"
-PIDFILE="/home/yourusername/ebookbot/bot.pid"
+PYTHON="/home1/sflatran/virtualenv/final_ebook_bot/3.10/bin/python3"
+SCRIPT="/home1/sflatran/final_ebook_bot/bot.py"
+LOGFILE="/home1/sflatran/final_ebook_bot/bot.log"
+PIDFILE="/home1/sflatran/final_ebook_bot/bot.pid"
 
 # ── Check if already running ──────────────────────────────────────────────────
 if [ -f "$PIDFILE" ]; then
