@@ -62,18 +62,20 @@ PID_FILE    = os.path.join(TMP_DIR, 'bot.pid')
 LOCK_FILE   = os.path.join(TMP_DIR, 'bot.lock')
 LIFECYCLE_LOCK_FILE = os.path.join(TMP_DIR, 'lifecycle.lock')
 RESTART_TXT = os.path.join(TMP_DIR, 'restart.txt')
+BOT_LOG_FILE = os.path.join(LOG_DIR, 'bot.log')
+WSGI_LOG_FILE = os.path.join(LOG_DIR, 'wsgi.log')
 
 BOT_RUNNER  = os.path.join(base_dir, 'run_bot.py')
 
 # ---------------------------------------------------------------------------
 # Logging
 # ---------------------------------------------------------------------------
-_truncate_log_file(os.path.join(LOG_DIR, 'wsgi.log'))
+_truncate_log_file(WSGI_LOG_FILE)
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler(os.path.join(LOG_DIR, 'wsgi.log')),
+        logging.FileHandler(WSGI_LOG_FILE),
         logging.StreamHandler(sys.stdout),
     ],
 )
@@ -144,6 +146,36 @@ def _with_lifecycle_lock(func):
             fcntl.flock(fh, fcntl.LOCK_UN)
 
 
+def _truncate_wsgi_log_stream() -> None:
+    """
+    Truncate the active WSGI log stream safely even while handler is open.
+    """
+    root_logger = logging.getLogger()
+    for handler in root_logger.handlers:
+        if isinstance(handler, logging.FileHandler) and getattr(handler, "baseFilename", "") == WSGI_LOG_FILE:
+            try:
+                handler.acquire()
+                if handler.stream:
+                    handler.flush()
+                    handler.stream.seek(0)
+                    handler.stream.truncate()
+                    handler.flush()
+                    return
+            except Exception:
+                pass
+            finally:
+                try:
+                    handler.release()
+                except Exception:
+                    pass
+    _truncate_log_file(WSGI_LOG_FILE)
+
+
+def _clear_runtime_logs() -> None:
+    _truncate_log_file(BOT_LOG_FILE)
+    _truncate_wsgi_log_stream()
+
+
 # ---------------------------------------------------------------------------
 # PID file
 # ---------------------------------------------------------------------------
@@ -178,6 +210,20 @@ def _pid_is_alive(pid: int) -> bool:
         return False
 
 
+def _read_primary_worker_pid() -> int | None:
+    """
+    Read primary worker PID from lock file and verify it is alive.
+    """
+    try:
+        raw = Path(LOCK_FILE).read_text().strip()
+        if not raw:
+            return None
+        pid = int(raw)
+        return pid if _pid_is_alive(pid) else None
+    except Exception:
+        return None
+
+
 # ---------------------------------------------------------------------------
 # Kill ALL surviving bot_runner.py processes (the key fix)
 # ---------------------------------------------------------------------------
@@ -206,6 +252,14 @@ def _find_all_bot_pids() -> list[int]:
     except Exception as e:
         logger.warning(f"Could not locate bot PIDs: {e}")
         return []
+
+
+def _ensure_no_bot_processes() -> bool:
+    remaining = _find_all_bot_pids()
+    if remaining:
+        logger.error(f"Bot processes still running after kill attempt: {remaining}")
+        return False
+    return True
 
 
 def kill_all_bot_processes():
@@ -274,8 +328,7 @@ def _cleanup_local_bot_state():
 
 def _spawn_bot_subprocess(log_reason: str):
     global bot_process, bot_process_group_id, bot_log_handle
-    _truncate_log_file(os.path.join(LOG_DIR, 'bot.log'))
-    bot_log_handle = open(os.path.join(LOG_DIR, 'bot.log'), 'w', encoding='utf-8')
+    bot_log_handle = open(BOT_LOG_FILE, 'w', encoding='utf-8')
     bot_process = subprocess.Popen(
         [sys.executable, BOT_RUNNER],
         cwd=base_dir,
@@ -299,6 +352,10 @@ def _start_bot_any_worker() -> bool:
             try:
                 # Clean slate for stale/orphan bot processes before spawning.
                 kill_all_bot_processes()
+                if not _ensure_no_bot_processes():
+                    return False
+                _cleanup_local_bot_state()
+                _clear_runtime_logs()
                 _spawn_bot_subprocess("Bot started")
                 return True
             except Exception as e:
@@ -313,6 +370,7 @@ def _stop_bot_any_worker() -> bool:
         with _process_lock:
             was_running = bool(get_bot_status()['running'])
             kill_all_bot_processes()
+            _ensure_no_bot_processes()
             _cleanup_local_bot_state()
             return was_running
     return bool(_with_lifecycle_lock(_do_stop))
@@ -323,9 +381,12 @@ def _restart_bot_any_worker(reason: str) -> bool:
         with _process_lock:
             logger.info(f"Restarting bot — reason: {reason}")
             kill_all_bot_processes()
+            if not _ensure_no_bot_processes():
+                return False
             _cleanup_local_bot_state()
             time.sleep(1)
             try:
+                _clear_runtime_logs()
                 _spawn_bot_subprocess("Bot restarted")
                 return True
             except Exception as e:
@@ -388,10 +449,13 @@ def get_bot_status() -> dict:
         running = bot_process.poll() is None
     elif pid:
         running = _pid_is_alive(pid)
+    primary_worker_pid = _read_primary_worker_pid()
     return {
         'running': running,
         'pid': pid,
-        'primary_worker': _is_primary_worker,
+        'primary_worker': primary_worker_pid is not None,
+        'primary_worker_pid': primary_worker_pid,
+        'worker_is_primary': _is_primary_worker,
         'worker_pid': os.getpid(),
     }
 
