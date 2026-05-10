@@ -1,2 +1,11 @@
+# EBook Telegram Bot — Python dependencies
+# Install with:  pip install -r requirements.txt
+
+# Telegram bot framework
 pyTelegramBotAPI
+
+# HTTP client — used to fetch EPUB files from the file server
 requests
+
+# MySQL / MariaDB driver — used by db.py to query the sflatran_kbooks database
+PyMySQL
