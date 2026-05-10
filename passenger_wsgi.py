@@ -60,6 +60,7 @@ def _truncate_log_file(path: str) -> None:
 
 PID_FILE    = os.path.join(TMP_DIR, 'bot.pid')
 LOCK_FILE   = os.path.join(TMP_DIR, 'bot.lock')
+LIFECYCLE_LOCK_FILE = os.path.join(TMP_DIR, 'lifecycle.lock')
 RESTART_TXT = os.path.join(TMP_DIR, 'restart.txt')
 
 BOT_RUNNER  = os.path.join(base_dir, 'run_bot.py')
@@ -125,6 +126,22 @@ def _release_worker_lock():
             pass
         _lock_fh = None
     _is_primary_worker = False
+
+
+def _with_lifecycle_lock(func):
+    """
+    Serialize start/stop/restart across all Passenger workers.
+    """
+    if fcntl is None:
+        return func()
+
+    os.makedirs(TMP_DIR, exist_ok=True)
+    with open(LIFECYCLE_LOCK_FILE, 'w') as fh:
+        fcntl.flock(fh, fcntl.LOCK_EX)
+        try:
+            return func()
+        finally:
+            fcntl.flock(fh, fcntl.LOCK_UN)
 
 
 # ---------------------------------------------------------------------------
@@ -243,65 +260,125 @@ def kill_all_bot_processes():
 # Bot lifecycle
 # ---------------------------------------------------------------------------
 
-def start_bot():
+def _cleanup_local_bot_state():
     global bot_process, bot_process_group_id, bot_log_handle
-
-    if not _is_primary_worker:
-        return None
-
-    with _process_lock:
-        # Always kill everything first — clean slate every time
-        kill_all_bot_processes()
-
-        logger.info("Starting fresh bot process...")
+    bot_process = None
+    bot_process_group_id = None
+    if bot_log_handle:
         try:
-            _truncate_log_file(os.path.join(LOG_DIR, 'bot.log'))
-            bot_log_handle = open(
-                os.path.join(LOG_DIR, 'bot.log'), 'w', encoding='utf-8'
-            )
-            bot_process = subprocess.Popen(
-                [sys.executable, BOT_RUNNER],
-                cwd=base_dir,
-                stdout=bot_log_handle,
-                stderr=subprocess.STDOUT,
-                preexec_fn=getattr(os, 'setsid', None),
-            )
-            bot_process_group_id = getattr(os, 'getpgid', lambda p: p)(bot_process.pid)
-            _write_pid(bot_process.pid)
+            bot_log_handle.close()
+        except Exception:
+            pass
+    bot_log_handle = None
 
-            logger.info(f"Bot started — PID {bot_process.pid}, PGID {bot_process_group_id}")
-            return bot_process
 
-        except Exception as e:
-            logger.error(f"Failed to start bot: {e}")
-            if bot_log_handle:
-                bot_log_handle.close()
-                bot_log_handle = None
-            return None
+def _spawn_bot_subprocess(log_reason: str):
+    global bot_process, bot_process_group_id, bot_log_handle
+    _truncate_log_file(os.path.join(LOG_DIR, 'bot.log'))
+    bot_log_handle = open(os.path.join(LOG_DIR, 'bot.log'), 'w', encoding='utf-8')
+    bot_process = subprocess.Popen(
+        [sys.executable, BOT_RUNNER],
+        cwd=base_dir,
+        stdout=bot_log_handle,
+        stderr=subprocess.STDOUT,
+        preexec_fn=getattr(os, 'setsid', None),
+    )
+    bot_process_group_id = getattr(os, 'getpgid', lambda p: p)(bot_process.pid)
+    _write_pid(bot_process.pid)
+    logger.info(f"{log_reason} — PID {bot_process.pid}, PGID {bot_process_group_id}")
+    return bot_process
+
+
+def _start_bot_any_worker() -> bool:
+    def _do_start():
+        with _process_lock:
+            status = get_bot_status()
+            if status['running']:
+                logger.info(f"Start skipped: bot already running (PID {status['pid']})")
+                return False
+            try:
+                # Clean slate for stale/orphan bot processes before spawning.
+                kill_all_bot_processes()
+                _spawn_bot_subprocess("Bot started")
+                return True
+            except Exception as e:
+                logger.error(f"Failed to start bot: {e}")
+                _cleanup_local_bot_state()
+                return False
+    return bool(_with_lifecycle_lock(_do_start))
+
+
+def _stop_bot_any_worker() -> bool:
+    def _do_stop():
+        with _process_lock:
+            was_running = bool(get_bot_status()['running'])
+            kill_all_bot_processes()
+            _cleanup_local_bot_state()
+            return was_running
+    return bool(_with_lifecycle_lock(_do_stop))
+
+
+def _restart_bot_any_worker(reason: str) -> bool:
+    def _do_restart():
+        with _process_lock:
+            logger.info(f"Restarting bot — reason: {reason}")
+            kill_all_bot_processes()
+            _cleanup_local_bot_state()
+            time.sleep(1)
+            try:
+                _spawn_bot_subprocess("Bot restarted")
+                return True
+            except Exception as e:
+                logger.error(f"Failed to restart bot: {e}")
+                _cleanup_local_bot_state()
+                return False
+    return bool(_with_lifecycle_lock(_do_restart))
+
+
+def start_bot():
+    if not _is_primary_worker:
+        logger.info("start_bot ignored: current worker is not primary")
+        return None
+    return _start_bot_any_worker()
+
+
+def start_bot_from_request():
+    """
+    Start bot from ANY worker. Needed because Passenger may route the request
+    to a secondary worker.
+    """
+    logger.info(f"HTTP start requested by worker {os.getpid()} (primary={_is_primary_worker})")
+    return _start_bot_any_worker()
 
 
 def stop_bot():
-    global bot_process, bot_process_group_id, bot_log_handle
-
     if not _is_primary_worker:
+        logger.info("stop_bot ignored: current worker is not primary")
         return
+    _stop_bot_any_worker()
 
-    with _process_lock:
-        kill_all_bot_processes()
-        bot_process = None
-        bot_process_group_id = None
-        if bot_log_handle:
-            bot_log_handle.close()
-            bot_log_handle = None
+
+def stop_bot_from_request():
+    """
+    Stop bot from ANY worker.
+    """
+    logger.info(f"HTTP stop requested by worker {os.getpid()} (primary={_is_primary_worker})")
+    return _stop_bot_any_worker()
 
 
 def restart_bot(reason: str = "manual"):
     if not _is_primary_worker:
+        logger.info("restart_bot ignored: current worker is not primary")
         return None
-    logger.info(f"Restarting bot — reason: {reason}")
-    stop_bot()
-    time.sleep(2)
-    return start_bot()
+    return _restart_bot_any_worker(reason)
+
+
+def restart_bot_from_request(reason: str = "HTTP request"):
+    """
+    Restart bot from ANY worker.
+    """
+    logger.info(f"HTTP restart requested by worker {os.getpid()} (primary={_is_primary_worker})")
+    return _restart_bot_any_worker(reason)
 
 
 def get_bot_status() -> dict:
@@ -755,19 +832,26 @@ def application(environ, start_response):
         return [body]
 
     if path in ('/start', '/start/', '/ui/start', '/ui/start/') and method == 'POST':
-        start_bot()
+        started = start_bot_from_request()
         start_response('200 OK', [('Content-Type', 'text/plain')])
-        return [b'Bot start requested']
+        if started:
+            return [b'Bot started']
+        return [b'Bot already running']
 
     if path in ('/stop', '/stop/', '/ui/stop', '/ui/stop/') and method == 'POST':
-        stop_bot()
+        was_running = stop_bot_from_request()
         start_response('200 OK', [('Content-Type', 'text/plain')])
-        return [b'Bot stop requested']
+        if was_running:
+            return [b'Bot stopped']
+        return [b'Bot was already stopped']
 
     if path in ('/restart', '/restart/', '/ui/restart', '/ui/restart/') and method == 'POST':
-        restart_bot(reason="HTTP request")
-        start_response('200 OK', [('Content-Type', 'text/plain')])
-        return [b'Bot restart requested']
+        restarted = restart_bot_from_request(reason="HTTP request")
+        if restarted:
+            start_response('200 OK', [('Content-Type', 'text/plain')])
+            return [b'Bot restarted']
+        start_response('500 Internal Server Error', [('Content-Type', 'text/plain')])
+        return [b'Bot restart failed']
 
     # Default
     if _is_primary_worker and not get_bot_status()['running']:
