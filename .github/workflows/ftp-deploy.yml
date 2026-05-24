@@ -14,7 +14,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0        # full history so we can diff against the last deploy
+          fetch-depth: 0
 
       - name: Deploy changed files via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
@@ -22,9 +22,9 @@ jobs:
           server:            ${{ secrets.FTP_HOST }}
           username:          ${{ secrets.FTP_USERNAME }}
           password:          ${{ secrets.FTP_PASSWORD }}
-          server-dir:        /final_ebook_bot/
+          server-dir:        final_ebook_bot/
           local-dir:         ./
-          dangerous-clean-slate: false   # never wipe the remote — only upload changes
+          dangerous-clean-slate: false
           exclude: |
             **/.git*
             **/.git*/**
