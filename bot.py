@@ -1411,11 +1411,18 @@ def cmd_settings(msg: types.Message):
     if not _check_user_access(msg):
         return
 
-    user_id = msg.from_user.id
+    telegram_id = msg.from_user.id
 
-    # Get user stats
-    download_count = get_user_download_count(user_id)
-    bookmark_count = get_bookmark_count(user_id)
+    # Get internal database user ID
+    db_user_id = _get_db_user_id(telegram_id)
+    if not db_user_id:
+        log.warning("Settings: cannot resolve db_user_id for telegram_id=%s", telegram_id)
+        bot.send_message(msg.chat.id, "⚠️ User not found. Try /start first.")
+        return
+
+    # Get user stats using internal DB user ID
+    download_count = get_user_download_count(db_user_id)
+    bookmark_count = get_bookmark_count(db_user_id)
 
     settings_text = (
         f"<b>⚙️ Settings</b>\n\n"
