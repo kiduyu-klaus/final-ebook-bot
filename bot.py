@@ -1727,15 +1727,21 @@ def cmd_check_ebooks(msg: types.Message):
             missing_ebooks = []
             missing_lock = threading.Lock()
             checked_count = [0]  # Use list for mutability in closure
+            total_count_lock = threading.Lock()
+            completed_count = [0]  # Track completed futures for progress
             progress_lock = threading.Lock()
             progress_msg = [None]  # Mutable holder for progress message object
             spinner = ["⏳", "⌛", "🔄", "🌀"]
+            last_progress_update = [time.time()]  # Track last update time
             log.info(
                 "check_ebooks starting: total_books=%s max_workers=%s cpu_count=%s",
                 total_books,
                 max_workers,
                 cpu_count,
             )
+
+            # Progress update interval in seconds
+            UPDATE_INTERVAL = 3
 
             def check_url(task):
                 url = task["url"]
@@ -1758,17 +1764,26 @@ def cmd_check_ebooks(msg: types.Message):
 
                 return file_exists
 
-            def build_progress_text(emoji: str) -> str:
+            def build_progress_text(emoji: str, force: bool = False) -> str:
                 with progress_lock:
                     checked = checked_count[0]
                 with missing_lock:
                     missing = len(missing_ebooks)
-                return (
-                    f"{emoji} Checking books... {checked}/{total_books}\n"
-                    f"❌ Missing EPUB files so far: {missing}"
-                )
+                
+                # Calculate percentage
+                percentage = (checked / total_books * 100) if total_books > 0 else 0
+                
+                if force or (time.time() - last_progress_update[0]) >= UPDATE_INTERVAL:
+                    last_progress_update[0] = time.time()
+                    return (
+                        f"{emoji} Checking books... {checked}/{total_books} ({percentage:.1f}%)\n"
+                        f"❌ Missing EPUB files so far: {missing}"
+                    )
+                return None  # Return None to skip update if not enough time passed
 
             def update_progress_message(text: str):
+                if text is None:
+                    return  # Skip update
                 try:
                     if progress_msg[0]:
                         bot.edit_message_text(
@@ -1778,7 +1793,8 @@ def cmd_check_ebooks(msg: types.Message):
                         )
                     else:
                         progress_msg[0] = bot.send_message(msg.chat.id, text)
-                except Exception:
+                except Exception as e:
+                    log.warning("Progress update failed: %s", e)
                     # Fallback: send a new message if edit fails
                     try:
                         progress_msg[0] = bot.send_message(msg.chat.id, text)
@@ -1789,7 +1805,7 @@ def cmd_check_ebooks(msg: types.Message):
             update_progress_message(build_progress_text(spinner[0]))
 
             # Use ThreadPoolExecutor for parallel requests
-            next_progress_at = time.time() + 5
+            next_progress_at = time.time() + UPDATE_INTERVAL
             spinner_tick = 0
             try:
                 with ThreadPoolExecutor(max_workers=max_workers) as executor:
@@ -1802,10 +1818,12 @@ def cmd_check_ebooks(msg: types.Message):
 
                         now = time.time()
                         if now >= next_progress_at:
-                            spinner_tick += 1
-                            emoji = spinner[spinner_tick % len(spinner)]
-                            update_progress_message(build_progress_text(emoji))
-                            next_progress_at = now + 5
+                            spinner_tick = (spinner_tick + 1) % len(spinner)
+                            emoji = spinner[spinner_tick]
+                            progress_text = build_progress_text(emoji)
+                            if progress_text:
+                                update_progress_message(progress_text)
+                            next_progress_at = now + UPDATE_INTERVAL
             except RuntimeError as exc:
                 # Most common in constrained environments: "can't start new thread"
                 log.exception(
@@ -1825,13 +1843,15 @@ def cmd_check_ebooks(msg: types.Message):
 
                     now = time.time()
                     if now >= next_progress_at:
-                        spinner_tick += 1
-                        emoji = spinner[spinner_tick % len(spinner)]
-                        update_progress_message(build_progress_text(emoji))
-                        next_progress_at = now + 5
+                        spinner_tick = (spinner_tick + 1) % len(spinner)
+                        emoji = spinner[spinner_tick]
+                        progress_text = build_progress_text(emoji)
+                        if progress_text:
+                            update_progress_message(progress_text)
+                        next_progress_at = now + UPDATE_INTERVAL
 
-            # Post final progress state
-            update_progress_message(build_progress_text("✅"))
+            # Post final progress state with force=True to ensure update
+            update_progress_message(f"✅ Check complete! Checked {checked_count[0]}/{total_books} books. Missing: {len(missing_ebooks)}")
 
             # Save results to JSON file
             output_file = "./missing_ebooks.json"
