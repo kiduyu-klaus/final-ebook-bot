@@ -818,32 +818,15 @@ def _build_detail_caption(book: dict, db: dict) -> str:
 def _build_download_keyboard(filename: str, db_user_id: int) -> Optional[types.InlineKeyboardMarkup]:
     """
     Build inline keyboard for the download document message.
-    Shows Bookmark/My Books buttons for saving and viewing bookmarks.
-    Requires db_user_id (internal DB id, not Telegram ID).
+    Shows only the My Books button for quick access to user's bookmarked books.
+    Note: Bookmark toggle is already available in the book details card above.
     """
     if not filename or not db_user_id:
         return None
     
-    keyboard = types.InlineKeyboardMarkup(row_width=2)
+    keyboard = types.InlineKeyboardMarkup(row_width=1)
     
-    # Bookmark toggle button - uses internal DB user ID
-    bookmarked = is_bookmarked(db_user_id, filename)
-    if bookmarked:
-        keyboard.add(
-            types.InlineKeyboardButton(
-                "🔖 Bookmarked",
-                callback_data=f"bm:del:{filename}",
-            )
-        )
-    else:
-        keyboard.add(
-            types.InlineKeyboardButton(
-                "🔖 Bookmark",
-                callback_data=f"bm:add:{filename}",
-            )
-        )
-    
-    # My Books button
+    # My Books button - bookmark toggle is already shown in book details card
     keyboard.add(
         types.InlineKeyboardButton(
             "📚 My Books",
