@@ -1,0 +1,123 @@
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/alt/python310/lib64/python3.10/logging/__init__.py", line 1104, in emit
+    self.flush()
+  File "/opt/alt/python310/lib64/python3.10/logging/__init__.py", line 1084, in flush
+    self.stream.flush()
+BrokenPipeError: [Errno 32] Broken pipe
+Call stack:
+  File "/home1/sflatran/final_ebook_bot/passenger_wsgi.py", line 1549, in <module>
+    initialize()
+  File "/home1/sflatran/final_ebook_bot/passenger_wsgi.py", line 1535, in initialize
+    logger.info(f"Initializing worker PID {os.getpid()}")
+  File "/opt/alt/python310/lib64/python3.10/logging/__init__.py", line 1477, in info
+    self._log(INFO, msg, args, **kwargs)
+  File "/opt/alt/python310/lib64/python3.10/logging/__init__.py", line 1624, in _log
+    self.handle(record)
+  File "/opt/alt/python310/lib64/python3.10/logging/__init__.py", line 1634, in handle
+    self.callHandlers(record)
+  File "/opt/alt/python310/lib64/python3.10/logging/__init__.py", line 1696, in callHandlers
+    hdlr.handle(record)
+  File "/opt/alt/python310/lib64/python3.10/logging/__init__.py", line 968, in handle
+    self.emit(record)
+  File "/home1/sflatran/final_ebook_bot/passenger_wsgi.py", line 92, in emit
+    super().emit(record)
+Message: 'Initializing worker PID 1334941'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "/home1/sflatran/final_ebook_bot/passenger_wsgi.py", line 135, in _acquire_worker_lock
+    fcntl.flock(_lock_fh, fcntl.LOCK_EX | fcntl.LOCK_NB)
+BlockingIOError: [Errno 11] Resource temporarily unavailable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/alt/python310/lib64/python3.10/logging/__init__.py", line 1104, in emit
+    self.flush()
+  File "/opt/alt/python310/lib64/python3.10/logging/__init__.py", line 1084, in flush
+    self.stream.flush()
+BrokenPipeError: [Errno 32] Broken pipe
+Call stack:
+  File "/home1/sflatran/final_ebook_bot/passenger_wsgi.py", line 1549, in <module>
+    initialize()
+  File "/home1/sflatran/final_ebook_bot/passenger_wsgi.py", line 1536, in initialize
+    if _acquire_worker_lock():
+  File "/home1/sflatran/final_ebook_bot/passenger_wsgi.py", line 148, in _acquire_worker_lock
+    logger.info(f"Worker {os.getpid()} is secondary")
+  File "/opt/alt/python310/lib64/python3.10/logging/__init__.py", line 1477, in info
+    self._log(INFO, msg, args, **kwargs)
+  File "/opt/alt/python310/lib64/python3.10/logging/__init__.py", line 1624, in _log
+    self.handle(record)
+  File "/opt/alt/python310/lib64/python3.10/logging/__init__.py", line 1634, in handle
+    self.callHandlers(record)
+  File "/opt/alt/python310/lib64/python3.10/logging/__init__.py", line 1696, in callHandlers
+    hdlr.handle(record)
+  File "/opt/alt/python310/lib64/python3.10/logging/__init__.py", line 968, in handle
+    self.emit(record)
+  File "/home1/sflatran/final_ebook_bot/passenger_wsgi.py", line 92, in emit
+    super().emit(record)
+Message: 'Worker 1334941 is secondary'
+Arguments: ()
+--- Logging error ---
+Traceback (most recent call last):
+  File "/opt/alt/python310/lib64/python3.10/logging/__init__.py", line 1104, in emit
+    self.flush()
+  File "/opt/alt/python310/lib64/python3.10/logging/__init__.py", line 1084, in flush
+    self.stream.flush()
+BrokenPipeError: [Errno 32] Broken pipe
+Call stack:
+  File "/home1/sflatran/final_ebook_bot/passenger_wsgi.py", line 1549, in <module>
+    initialize()
+  File "/home1/sflatran/final_ebook_bot/passenger_wsgi.py", line 1540, in initialize
+    logger.info("Secondary worker ready")
+  File "/opt/alt/python310/lib64/python3.10/logging/__init__.py", line 1477, in info
+    self._log(INFO, msg, args, **kwargs)
+  File "/opt/alt/python310/lib64/python3.10/logging/__init__.py", line 1624, in _log
+    self.handle(record)
+  File "/opt/alt/python310/lib64/python3.10/logging/__init__.py", line 1634, in handle
+    self.callHandlers(record)
+  File "/opt/alt/python310/lib64/python3.10/logging/__init__.py", line 1696, in callHandlers
+    hdlr.handle(record)
+  File "/opt/alt/python310/lib64/python3.10/logging/__init__.py", line 968, in handle
+    self.emit(record)
+  File "/home1/sflatran/final_ebook_bot/passenger_wsgi.py", line 92, in emit
+    super().emit(record)
+Message: 'Secondary worker ready'
+Arguments: ()
+2026-05-24 00:00:50,882 - passenger_wsgi - INFO - Initializing worker PID 1334941
+2026-05-24 00:00:50,883 - passenger_wsgi - INFO - Worker 1334941 is secondary
+2026-05-24 00:00:50,884 - passenger_wsgi - INFO - Secondary worker ready
+2026-05-24 00:00:50,882 - passenger_wsgi - INFO - Initializing worker PID 1334941
+2026-05-24 00:00:50,883 - passenger_wsgi - INFO - Worker 1334941 is secondary
+2026-05-24 00:00:50,884 - passenger_wsgi - INFO - Secondary worker ready
+2026-05-24 00:00:50,882 - passenger_wsgi - INFO - Initializing worker PID 1334941
+2026-05-24 00:00:50,883 - passenger_wsgi - INFO - Worker 1334941 is secondary
+2026-05-24 00:00:50,884 - passenger_wsgi - INFO - Secondary worker ready
+2026-05-24 00:00:50,882 - passenger_wsgi - INFO - Initializing worker PID 1334941
+2026-05-24 00:00:50,883 - passenger_wsgi - INFO - Worker 1334941 is secondary
+2026-05-24 00:00:50,884 - passenger_wsgi - INFO - Secondary worker ready
+2026-05-24 00:00:50,882 - passenger_wsgi - INFO - Initializing worker PID 1334941
+2026-05-24 00:00:50,883 - passenger_wsgi - INFO - Worker 1334941 is secondary
+2026-05-24 00:00:50,884 - passenger_wsgi - INFO - Secondary worker ready
+2026-05-24 00:00:50,882 - passenger_wsgi - INFO - Initializing worker PID 1334941
+2026-05-24 00:00:50,883 - passenger_wsgi - INFO - Worker 1334941 is secondary
+2026-05-24 00:00:50,884 - passenger_wsgi - INFO - Secondary worker ready
+2026-05-24 00:00:50,882 - passenger_wsgi - INFO - Initializing worker PID 1334941
+2026-05-24 00:00:50,883 - passenger_wsgi - INFO - Worker 1334941 is secondary
+2026-05-24 00:00:50,884 - passenger_wsgi - INFO - Secondary worker ready
+2026-05-24 00:00:50,882 - passenger_wsgi - INFO - Initializing worker PID 1334941
+2026-05-24 00:00:50,883 - passenger_wsgi - INFO - Worker 1334941 is secondary
+2026-05-24 00:00:50,884 - passenger_wsgi - INFO - Secondary worker ready
+2026-05-24 00:00:50,882 - passenger_wsgi - INFO - Initializing worker PID 1334941
+2026-05-24 00:00:50,883 - passenger_wsgi - INFO - Worker 1334941 is secondary
+2026-05-24 00:00:50,884 - passenger_wsgi - INFO - Secondary worker ready
+2026-05-24 00:00:50,882 - passenger_wsgi - INFO - Initializing worker PID 1334941
+2026-05-24 00:00:50,883 - passenger_wsgi - INFO - Worker 1334941 is secondary
+2026-05-24 00:00:50,884 - passenger_wsgi - INFO - Secondary worker ready
+2026-05-23 22:27:39,982 - passenger_wsgi - INFO - Initializing worker PID 888921
+2026-05-23 22:27:39,985 - passenger_wsgi - INFO - Worker 888921 is secondary
+2026-05-23 22:27:39,986 - passenger_wsgi - INFO - Secondary worker ready
+2026-05-23 22:27:39,982 - passenger_wsgi - INFO - Initializing worker PID 888921
+2026-05-23 22:27:39,985 - passenger_wsgi - INFO - Worker 888921 is secondary
+2026-05-23 22:27:39,986 - passenger_wsgi - INFO - Secondary worker ready

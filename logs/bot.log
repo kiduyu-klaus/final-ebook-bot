@@ -1,0 +1,35 @@
+2026-05-23 23:40:50,781  INFO      __main__  Bot runner starting…
+2026-05-23 23:40:51,069  INFO      bot  Logging to /home1/sflatran/final_ebook_bot/logs/bot.log
+2026-05-23 23:40:51,220  INFO      bot  Bot commands registered (11 commands)
+2026-05-23 23:40:51,220  INFO      bot  📚 eBook Bot starting (polling) …
+2026-05-23 23:41:26,564  INFO      bot  check_ebooks starting: total_books=14430 max_workers=100 cpu_count=96
+2026-05-23 23:41:30,940  ERROR     bot  Thread pool creation failed for check_ebooks (workers=100): can't start new thread
+Traceback (most recent call last):
+  File "/home1/sflatran/final_ebook_bot/bot.py", line 1763, in run_check
+    futures = [executor.submit(check_url, task) for task in url_tasks]
+  File "/home1/sflatran/final_ebook_bot/bot.py", line 1763, in <listcomp>
+    futures = [executor.submit(check_url, task) for task in url_tasks]
+  File "/opt/alt/python310/lib64/python3.10/concurrent/futures/thread.py", line 176, in submit
+    self._adjust_thread_count()
+  File "/opt/alt/python310/lib64/python3.10/concurrent/futures/thread.py", line 199, in _adjust_thread_count
+    t.start()
+  File "/opt/alt/python310/lib64/python3.10/threading.py", line 935, in start
+    _start_new_thread(self._bootstrap, ())
+RuntimeError: can't start new thread
+2026-05-23 23:46:59,458  INFO      bot  Check ebooks completed: 91/14430 missing
+2026-05-23 23:47:46,531  INFO      bot  Resolved telegram_id=5387934188 to db_user_id=1
+2026-05-23 23:47:46,532  INFO      bot  download_book start: chat_id=5387934188 telegram_id=5387934188 db_user_id=1 file=Killer_Look_-_Linda_A._Fairstein.epub
+2026-05-23 23:47:47,973  INFO      db  increment_user_downloads telegram_id=5387934188 rowcount=1 ok=True
+2026-05-23 23:47:47,973  INFO      db  log_user_download attempt: user_id=1 book_id=None filename='Killer_Look_-_Linda_A._Fairstein.epub' title='Killer Look Linda A Fairstein'
+2026-05-23 23:47:47,976  INFO      db  log_user_download success: user_id=1 rowcount=1 lastrowid=18 ok=True
+2026-05-23 23:47:47,976  INFO      bot  download logging result: telegram_id=5387934188 db_user_id=1 increment_ok=True log_ok=True db_book_id=None file=Killer_Look_-_Linda_A._Fairstein.epub
+2026-05-23 23:47:48,030  INFO      bot  Sent 'Killer Look Linda A Fairstein' to chat 5387934188
+2026-05-24 00:04:21,278  INFO      indexer  Index saved: 13130 books → ./books_index.json
+2026-05-24 00:04:21,336  INFO      bot  Reindex by user 5387934188: 13130 books
+2026-05-24 00:10:22,259  INFO      bot  Resolved telegram_id=5387934188 to db_user_id=1
+2026-05-24 00:10:22,259  INFO      bot  download_book start: chat_id=5387934188 telegram_id=5387934188 db_user_id=1 file=Bilbo's_Last_Song_-_J._R._R._Tolkien.epub
+2026-05-24 00:10:23,934  INFO      db  increment_user_downloads telegram_id=5387934188 rowcount=1 ok=True
+2026-05-24 00:10:23,935  INFO      db  log_user_download attempt: user_id=1 book_id=None filename="Bilbo's_Last_Song_-_J._R._R._Tolkien.epub" title="Bilbo'S Last Song J R R Tolkien"
+2026-05-24 00:10:23,938  INFO      db  log_user_download success: user_id=1 rowcount=1 lastrowid=19 ok=True
+2026-05-24 00:10:23,938  INFO      bot  download logging result: telegram_id=5387934188 db_user_id=1 increment_ok=True log_ok=True db_book_id=None file=Bilbo's_Last_Song_-_J._R._R._Tolkien.epub
+2026-05-24 00:10:23,961  INFO      bot  Sent 'Bilbo'S Last Song J R R Tolkien' to chat 5387934188

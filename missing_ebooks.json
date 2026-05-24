@@ -1,0 +1,736 @@
+{
+  "checked_at": "2026-05-23T21:06:28.140854+00:00",
+  "ebooks_dir": "/home1/sflatran/public_html/kbooks/public/upload",
+  "total_checked": 14430,
+  "missing_count": 91,
+  "missing_ebooks": [
+    {
+      "id": 185176,
+      "title": "Wellspring of Chaos",
+      "url": "upload\\L.E._Modesitt_Jr.\\Wellspring_of_Chaos_-_L._E._Modesitt_Jr_.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/L.E._Modesitt_Jr./Wellspring_of_Chaos_-_L._E._Modesitt_Jr_.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/L.E._Modesitt_Jr./Wellspring_of_Chaos_-_L._E._Modesitt_Jr_.epub"
+    },
+    {
+      "id": 285168,
+      "title": "Ciara's Song: A Chronicle of Witch World",
+      "url": "upload\\Andre_Norton\\Ciara's_Song_(Estcarp_Cycle_#9)_-_Andre_Norton.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Andre_Norton/Ciara's_Song_(Estcarp_Cycle_#9)_-_Andre_Norton.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Andre_Norton/Ciara's_Song_(Estcarp_Cycle_#9)_-_Andre_Norton.epub"
+    },
+    {
+      "id": 285176,
+      "title": "Songsmith",
+      "url": "upload\\A.C._Crispin\\Songsmith_(High_Hallack_Cycle_#_-_Andre_Norton.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/A.C._Crispin/Songsmith_(High_Hallack_Cycle_#_-_Andre_Norton.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/A.C._Crispin/Songsmith_(High_Hallack_Cycle_#_-_Andre_Norton.epub"
+    },
+    {
+      "id": 413896,
+      "title": "Thief of Lives",
+      "url": "upload\\J.C._Hendee\\The_Noble_Dead_Saga_#02_-_Thief_-_Barb_Hendee.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/J.C._Hendee/The_Noble_Dead_Saga_#02_-_Thief_-_Barb_Hendee.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/J.C._Hendee/The_Noble_Dead_Saga_#02_-_Thief_-_Barb_Hendee.epub"
+    },
+    {
+      "id": 462448,
+      "title": "Witch World",
+      "url": "upload\\Andre_Norton\\Witch_World_(Estcarp_Cycle_#1)_-_Andre_Norton.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Andre_Norton/Witch_World_(Estcarp_Cycle_#1)_-_Andre_Norton.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Andre_Norton/Witch_World_(Estcarp_Cycle_#1)_-_Andre_Norton.epub"
+    },
+    {
+      "id": 568099,
+      "title": "Waylander",
+      "url": "upload\\David_Gemmell\\Waylander_(Waylander#1)_-_David_Gemmell.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/David_Gemmell/Waylander_(Waylander#1)_-_David_Gemmell.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/David_Gemmell/Waylander_(Waylander#1)_-_David_Gemmell.epub"
+    },
+    {
+      "id": 763276,
+      "title": "Wellspring of Chaos",
+      "url": "upload\\L.E._Modesitt_Jr.\\Wellspring_of_Chaos_-_L._E._Modesitt,_Jr_.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/L.E._Modesitt_Jr./Wellspring_of_Chaos_-_L._E._Modesitt,_Jr_.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/L.E._Modesitt_Jr./Wellspring_of_Chaos_-_L._E._Modesitt,_Jr_.epub"
+    },
+    {
+      "id": 1043236,
+      "title": "Prescription: One Husband",
+      "url": "upload\\Marion_Lennox\\Prescription&#8212;One_Husband_-_Marion_Lennox.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Marion_Lennox/Prescription&#8212;One_Husband_-_Marion_Lennox.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Marion_Lennox/Prescription&#8212;One_Husband_-_Marion_Lennox.epub"
+    },
+    {
+      "id": 1043383,
+      "title": "Prescription - One Bride",
+      "url": "upload\\Marion_Lennox\\Prescription&#8212;One_Bride_-_Marion_Lennox.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Marion_Lennox/Prescription&#8212;One_Bride_-_Marion_Lennox.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Marion_Lennox/Prescription&#8212;One_Bride_-_Marion_Lennox.epub"
+    },
+    {
+      "id": 1123827,
+      "title": "The White Order",
+      "url": "upload\\L.E._Modesitt_Jr.\\The_White_Order_-_L._E._Modesitt_Jr_.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/L.E._Modesitt_Jr./The_White_Order_-_L._E._Modesitt_Jr_.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/L.E._Modesitt_Jr./The_White_Order_-_L._E._Modesitt_Jr_.epub"
+    },
+    {
+      "id": 1161421,
+      "title": "Fries Alive!",
+      "url": "upload\\David_Baldacci\\Freddy_and_the_French_Fries_#1__-_David_Baldacci.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/David_Baldacci/Freddy_and_the_French_Fries_#1__-_David_Baldacci.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/David_Baldacci/Freddy_and_the_French_Fries_#1__-_David_Baldacci.epub"
+    },
+    {
+      "id": 1183801,
+      "title": "Trey of Swords",
+      "url": "upload\\Andre_Norton\\Trey_of_Swords_(Estcarp_Cycle_#_-_Andre_Norton.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Andre_Norton/Trey_of_Swords_(Estcarp_Cycle_#_-_Andre_Norton.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Andre_Norton/Trey_of_Swords_(Estcarp_Cycle_#_-_Andre_Norton.epub"
+    },
+    {
+      "id": 2292175,
+      "title": "Mage-Guard of Hamor",
+      "url": "upload\\L.E._Modesitt_Jr.\\Mage-Guard_of_Hamor_-_L._E._Modesitt_Jr_.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/L.E._Modesitt_Jr./Mage-Guard_of_Hamor_-_L._E._Modesitt_Jr_.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/L.E._Modesitt_Jr./Mage-Guard_of_Hamor_-_L._E._Modesitt_Jr_.epub"
+    },
+    {
+      "id": 6869134,
+      "title": "Imager's Challenge",
+      "url": "upload\\L.E._Modesitt_Jr.\\Imager_Portfolio_#02_-_Imager's_-_L._E._Modesitt_Jr_.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/L.E._Modesitt_Jr./Imager_Portfolio_#02_-_Imager's_-_L._E._Modesitt_Jr_.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/L.E._Modesitt_Jr./Imager_Portfolio_#02_-_Imager's_-_L._E._Modesitt_Jr_.epub"
+    },
+    {
+      "id": 6985363,
+      "title": "Imager's Challenge",
+      "url": "upload\\L.E._Modesitt_Jr.\\Imager's_Challenge_-_L._E._Modesitt_Jr_.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/L.E._Modesitt_Jr./Imager's_Challenge_-_L._E._Modesitt_Jr_.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/L.E._Modesitt_Jr./Imager's_Challenge_-_L._E._Modesitt_Jr_.epub"
+    },
+    {
+      "id": 7974109,
+      "title": "Torment",
+      "url": "upload\\Lauren_Kate\\(Fallen_#2)_Torment_-_Lauren_Kate.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Lauren_Kate/(Fallen_#2)_Torment_-_Lauren_Kate.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Lauren_Kate/(Fallen_#2)_Torment_-_Lauren_Kate.epub"
+    },
+    {
+      "id": 8433250,
+      "title": "Ilse Witch",
+      "url": "upload\\Terry_Brooks\\Shannara_Saga_#17_-_The_Voyage_-_Terry_Brooks.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Terry_Brooks/Shannara_Saga_#17_-_The_Voyage_-_Terry_Brooks.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Terry_Brooks/Shannara_Saga_#17_-_The_Voyage_-_Terry_Brooks.epub"
+    },
+    {
+      "id": 8523896,
+      "title": "The Mystery of Silas Finklebean",
+      "url": "upload\\David_Baldacci\\Freddy_and_the_French_Fries_#1__-_David_Baldacci.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/David_Baldacci/Freddy_and_the_French_Fries_#1__-_David_Baldacci.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/David_Baldacci/Freddy_and_the_French_Fries_#1__-_David_Baldacci.epub"
+    },
+    {
+      "id": 9376345,
+      "title": "Bite Club",
+      "url": "upload\\Rachel_Caine\\Morganville_Vampires_#10_-_Bite_-_Rachel_Caine.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Rachel_Caine/Morganville_Vampires_#10_-_Bite_-_Rachel_Caine.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Rachel_Caine/Morganville_Vampires_#10_-_Bite_-_Rachel_Caine.epub"
+    },
+    {
+      "id": 9817788,
+      "title": "River God",
+      "url": "upload\\Wilbur_Smith\\River_God_(Ancient_Egypt_#1)_-_Wilbur_Smith.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Wilbur_Smith/River_God_(Ancient_Egypt_#1)_-_Wilbur_Smith.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Wilbur_Smith/River_God_(Ancient_Egypt_#1)_-_Wilbur_Smith.epub"
+    },
+    {
+      "id": 10637766,
+      "title": "Silence",
+      "url": "upload\\Becca_Fitzpatrick\\Silence_(Hush,_Hush_#3)_-_Becca_Fitzpatrick.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Becca_Fitzpatrick/Silence_(Hush,_Hush_#3)_-_Becca_Fitzpatrick.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Becca_Fitzpatrick/Silence_(Hush,_Hush_#3)_-_Becca_Fitzpatrick.epub"
+    },
+    {
+      "id": 12701151,
+      "title": "The Pirate Prince",
+      "url": "upload\\Michelle_M._Pillow\\[L_of_V_#5]_The_Pirate_Prince_-_Michelle_M._Pillow.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Michelle_M._Pillow/[L_of_V_#5]_The_Pirate_Prince_-_Michelle_M._Pillow.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Michelle_M._Pillow/[L_of_V_#5]_The_Pirate_Prince_-_Michelle_M._Pillow.epub"
+    },
+    {
+      "id": 12938582,
+      "title": "Strangers in Death / Salvation in Death / Promises in Death / Kindred in Death",
+      "url": "upload\\J.D._Robb\\J.D._Robb_IN_Death_COLLECTION_B_-_J._D._Robb.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/J.D._Robb/J.D._Robb_IN_Death_COLLECTION_B_-_J._D._Robb.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/J.D._Robb/J.D._Robb_IN_Death_COLLECTION_B_-_J._D._Robb.epub"
+    },
+    {
+      "id": 16033909,
+      "title": "Burn",
+      "url": "upload\\Maya_Banks\\Burn_(Breathless_#3)_-_Maya_Banks.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Maya_Banks/Burn_(Breathless_#3)_-_Maya_Banks.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Maya_Banks/Burn_(Breathless_#3)_-_Maya_Banks.epub"
+    },
+    {
+      "id": 16059444,
+      "title": "Antiagon Fire",
+      "url": "upload\\L.E._Modesitt_Jr.\\Antiagon_Fire_-_L._E._Modesitt_Jr_.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/L.E._Modesitt_Jr./Antiagon_Fire_-_L._E._Modesitt_Jr_.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/L.E._Modesitt_Jr./Antiagon_Fire_-_L._E._Modesitt_Jr_.epub"
+    },
+    {
+      "id": 17340504,
+      "title": "The No. 1 Bestsellers Collection 2011: Forced Wife, Royal Love-Child/Valente's Baby/The Boss's Christmas Seduction/The Executive's Surprise Baby/Bargaining for King's Baby",
+      "url": "upload\\Yvonne_Lindsay\\The_#1_Bestsellers_Collection_2_-_Catherine_Mann.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Yvonne_Lindsay/The_#1_Bestsellers_Collection_2_-_Catherine_Mann.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Yvonne_Lindsay/The_#1_Bestsellers_Collection_2_-_Catherine_Mann.epub"
+    },
+    {
+      "id": 18373947,
+      "title": "Soul Catcher",
+      "url": "upload\\E.L._Todd\\Soul_Catcher_(Soul_Saga_#1)_-_E._L._Todd.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/E.L._Todd/Soul_Catcher_(Soul_Saga_#1)_-_E._L._Todd.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/E.L._Todd/Soul_Catcher_(Soul_Saga_#1)_-_E._L._Todd.epub"
+    },
+    {
+      "id": 18759748,
+      "title": "Screwdrivered",
+      "url": "upload\\Alice_Clayton\\Screwdrivered_(Cocktail_#3)_-_Alice_Clayton.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Alice_Clayton/Screwdrivered_(Cocktail_#3)_-_Alice_Clayton.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Alice_Clayton/Screwdrivered_(Cocktail_#3)_-_Alice_Clayton.epub"
+    },
+    {
+      "id": 18775203,
+      "title": "Rusty Nailed",
+      "url": "upload\\Alice_Clayton\\Rusty_Nailed_(Cocktail,_#2)_-_Alice_Clayton.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Alice_Clayton/Rusty_Nailed_(Cocktail,_#2)_-_Alice_Clayton.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Alice_Clayton/Rusty_Nailed_(Cocktail,_#2)_-_Alice_Clayton.epub"
+    },
+    {
+      "id": 20588826,
+      "title": "The Mating Season",
+      "url": "upload\\Bonnie_Vanak\\(Werewolves_of_Montana_#0.5)_Pr_-_Bonnie_Vanak.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Bonnie_Vanak/(Werewolves_of_Montana_#0.5)_Pr_-_Bonnie_Vanak.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Bonnie_Vanak/(Werewolves_of_Montana_#0.5)_Pr_-_Bonnie_Vanak.epub"
+    },
+    {
+      "id": 20932047,
+      "title": "Antidote",
+      "url": "upload\\Anna_Abner\\Antidote_(Red_Plague_#2)_(Red_P_-_Anna_Abner.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Anna_Abner/Antidote_(Red_Plague_#2)_(Red_P_-_Anna_Abner.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Anna_Abner/Antidote_(Red_Plague_#2)_(Red_P_-_Anna_Abner.epub"
+    },
+    {
+      "id": 20933244,
+      "title": "Panacea",
+      "url": "upload\\Anna_Abner\\Panacea_(Red_Plague_#3)_(Red_Pl_-_Anna_Abner.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Anna_Abner/Panacea_(Red_Plague_#3)_(Red_Pl_-_Anna_Abner.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Anna_Abner/Panacea_(Red_Plague_#3)_(Red_Pl_-_Anna_Abner.epub"
+    },
+    {
+      "id": 21412215,
+      "title": "Last Call",
+      "url": "upload\\Alice_Clayton\\Last_Call_(Cocktai,_#4.5)_-_Alice_Clayton.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Alice_Clayton/Last_Call_(Cocktai,_#4.5)_-_Alice_Clayton.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Alice_Clayton/Last_Call_(Cocktai,_#4.5)_-_Alice_Clayton.epub"
+    },
+    {
+      "id": 22312926,
+      "title": "Abby's Plight",
+      "url": "upload\\E.L._Todd\\Abby's_Plight_(Southern_Love_#5_-_E._L._Todd.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/E.L._Todd/Abby's_Plight_(Southern_Love_#5_-_E._L._Todd.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/E.L._Todd/Abby's_Plight_(Southern_Love_#5_-_E._L._Todd.epub"
+    },
+    {
+      "id": 23214408,
+      "title": "After Ever Happy",
+      "url": "upload\\Anna_Todd\\After_Ever_Happy_(After_#4)_-_Anna_Todd.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Anna_Todd/After_Ever_Happy_(After_#4)_-_Anna_Todd.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Anna_Todd/After_Ever_Happy_(After_#4)_-_Anna_Todd.epub"
+    },
+    {
+      "id": 23916343,
+      "title": "Inherited: One Child / Dakota Daddy",
+      "url": "upload\\Day_Leclaire\\Baby_Daddy__Book_#1_-_Day_Leclaire.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Day_Leclaire/Baby_Daddy__Book_#1_-_Day_Leclaire.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Day_Leclaire/Baby_Daddy__Book_#1_-_Day_Leclaire.epub"
+    },
+    {
+      "id": 24703202,
+      "title": "Platinum",
+      "url": "upload\\K.A._Linde\\Platinum_(All_That_Glitters_#3)_-_K._A._Linde.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/K.A._Linde/Platinum_(All_That_Glitters_#3)_-_K._A._Linde.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/K.A._Linde/Platinum_(All_That_Glitters_#3)_-_K._A._Linde.epub"
+    },
+    {
+      "id": 25543263,
+      "title": "Sons of Navarus Box Set #1",
+      "url": "upload\\Gabrielle_Bisset\\Sons_of_Navarus_Box_Set_#1_-_K._M._Scott.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Gabrielle_Bisset/Sons_of_Navarus_Box_Set_#1_-_K._M._Scott.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Gabrielle_Bisset/Sons_of_Navarus_Box_Set_#1_-_K._M._Scott.epub"
+    },
+    {
+      "id": 25788203,
+      "title": "Before",
+      "url": "upload\\Anna_Todd\\Before_(After_#5)_-_Anna_Todd.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Anna_Todd/Before_(After_#5)_-_Anna_Todd.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Anna_Todd/Before_(After_#5)_-_Anna_Todd.epub"
+    },
+    {
+      "id": 27833638,
+      "title": "Killer Look",
+      "url": "upload\\Linda_Fairstein\\Killer_Look_-_Linda_Fairstein.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Linda_Fairstein/Killer_Look_-_Linda_Fairstein.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Linda_Fairstein/Killer_Look_-_Linda_Fairstein.epub"
+    },
+    {
+      "id": 28013511,
+      "title": "Scarlet Rain",
+      "url": "upload\\Kristin_Cast\\Scarlet_Rain_(The_Escaped_#2)_-_Kristin_Cast.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Kristin_Cast/Scarlet_Rain_(The_Escaped_#2)_-_Kristin_Cast.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Kristin_Cast/Scarlet_Rain_(The_Escaped_#2)_-_Kristin_Cast.epub"
+    },
+    {
+      "id": 28220807,
+      "title": "Treachery's Tools",
+      "url": "upload\\L.E._Modesitt_Jr.\\Treachery's_Tools_-_L._E._Modesitt_Jr_.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/L.E._Modesitt_Jr./Treachery's_Tools_-_L._E._Modesitt_Jr_.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/L.E._Modesitt_Jr./Treachery's_Tools_-_L._E._Modesitt_Jr_.epub"
+    },
+    {
+      "id": 29098014,
+      "title": "Copper Ridge Series #0.5-3.4: Shoulda Been a Cowboy\\Part Time Cowboy\\Brokedown Cowboy\\Bad News Cowboy\\A Copper Ridge Christmas",
+      "url": "upload\\Maisey_Yates\\Copper_Ridge_Series_#0.5-3.4__S_-_Maisey_Yates.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Maisey_Yates/Copper_Ridge_Series_#0.5-3.4__S_-_Maisey_Yates.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Maisey_Yates/Copper_Ridge_Series_#0.5-3.4__S_-_Maisey_Yates.epub"
+    },
+    {
+      "id": 29333187,
+      "title": "Baby, You're Mine",
+      "url": "upload\\Fiona_Davenport\\Baby,_You're_Mine_(Yeah,_Baby_#_-_Fiona_Davenport.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Fiona_Davenport/Baby,_You're_Mine_(Yeah,_Baby_#_-_Fiona_Davenport.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Fiona_Davenport/Baby,_You're_Mine_(Yeah,_Baby_#_-_Fiona_Davenport.epub"
+    },
+    {
+      "id": 29505200,
+      "title": "Tindr",
+      "url": "upload\\Octavia_Randolph\\Tindr--#5--Circle_of_Ceridwen_S_-_Octavia_Randolph.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Octavia_Randolph/Tindr--#5--Circle_of_Ceridwen_S_-_Octavia_Randolph.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Octavia_Randolph/Tindr--#5--Circle_of_Ceridwen_S_-_Octavia_Randolph.epub"
+    },
+    {
+      "id": 29629452,
+      "title": "Treachery's Tools",
+      "url": "upload\\L.E._Modesitt_Jr.\\Treachery's_Tools_-_L._E._Modesitt,_Jr_.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/L.E._Modesitt_Jr./Treachery's_Tools_-_L._E._Modesitt,_Jr_.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/L.E._Modesitt_Jr./Treachery's_Tools_-_L._E._Modesitt,_Jr_.epub"
+    },
+    {
+      "id": 30071707,
+      "title": "Thursday",
+      "url": "upload\\E.L._Todd\\Thursday_(Timeless_Series_#4)_-_E._L._Todd.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/E.L._Todd/Thursday_(Timeless_Series_#4)_-_E._L._Todd.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/E.L._Todd/Thursday_(Timeless_Series_#4)_-_E._L._Todd.epub"
+    },
+    {
+      "id": 30071708,
+      "title": "Tuesday",
+      "url": "upload\\E.L._Todd\\Tuesday_(Timeless_Series_#2)_-_E._L._Todd.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/E.L._Todd/Tuesday_(Timeless_Series_#2)_-_E._L._Todd.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/E.L._Todd/Tuesday_(Timeless_Series_#2)_-_E._L._Todd.epub"
+    },
+    {
+      "id": 30077429,
+      "title": "Wednesday",
+      "url": "upload\\E.L._Todd\\Wednesday_(Timeless_Series_#3)_-_E._L._Todd.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/E.L._Todd/Wednesday_(Timeless_Series_#3)_-_E._L._Todd.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/E.L._Todd/Wednesday_(Timeless_Series_#3)_-_E._L._Todd.epub"
+    },
+    {
+      "id": 30078690,
+      "title": "Friday: A Contemporary Romance With Angst",
+      "url": "upload\\E.L._Todd\\Friday__A_Contemporary_Romance_-_E._L._Todd.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/E.L._Todd/Friday__A_Contemporary_Romance_-_E._L._Todd.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/E.L._Todd/Friday__A_Contemporary_Romance_-_E._L._Todd.epub"
+    },
+    {
+      "id": 30243890,
+      "title": "Sunday",
+      "url": "upload\\E.L._Todd\\Sunday_(Timeless_Series_#7)_-_E._L._Todd.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/E.L._Todd/Sunday_(Timeless_Series_#7)_-_E._L._Todd.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/E.L._Todd/Sunday_(Timeless_Series_#7)_-_E._L._Todd.epub"
+    },
+    {
+      "id": 30659298,
+      "title": "Bear to Want: Kodiak Den #1",
+      "url": "upload\\Amy_Lamont\\Bear_to_Want__Kodiak_Den_#1_(Al_-_Amy_Lamont.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Amy_Lamont/Bear_to_Want__Kodiak_Den_#1_(Al_-_Amy_Lamont.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Amy_Lamont/Bear_to_Want__Kodiak_Den_#1_(Al_-_Amy_Lamont.epub"
+    },
+    {
+      "id": 30738096,
+      "title": "Ravenous",
+      "url": "upload\\M.S._Force\\Ravenous_(Quantum_#5)_-_M.S._Force.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/M.S._Force/Ravenous_(Quantum_#5)_-_M.S._Force.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/M.S._Force/Ravenous_(Quantum_#5)_-_M.S._Force.epub"
+    },
+    {
+      "id": 30823593,
+      "title": "Theirs to Bear",
+      "url": "upload\\Jennifer_Hilt\\Theirs_to_Bear__Icy_Cap_Den_#3_-_Jennifer_Hilt.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Jennifer_Hilt/Theirs_to_Bear__Icy_Cap_Den_#3_-_Jennifer_Hilt.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Jennifer_Hilt/Theirs_to_Bear__Icy_Cap_Den_#3_-_Jennifer_Hilt.epub"
+    },
+    {
+      "id": 30899542,
+      "title": "Bear to Need: Kodiak Den #2",
+      "url": "upload\\Amy_Lamont\\Bear_to_Need__Kodiak_Den_#2_(Al_-_Amy_Lamont.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Amy_Lamont/Bear_to_Need__Kodiak_Den_#2_(Al_-_Amy_Lamont.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Amy_Lamont/Bear_to_Need__Kodiak_Den_#2_(Al_-_Amy_Lamont.epub"
+    },
+    {
+      "id": 30899714,
+      "title": "Rogue",
+      "url": "upload\\E.L._Todd\\Rogue_(Gladiator_Series_#2)_-_E._L._Todd.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/E.L._Todd/Rogue_(Gladiator_Series_#2)_-_E._L._Todd.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/E.L._Todd/Rogue_(Gladiator_Series_#2)_-_E._L._Todd.epub"
+    },
+    {
+      "id": 32570538,
+      "title": "Spark",
+      "url": "upload\\E.L._Todd\\Spark_(Electric_Series_#2)_-_E._L._Todd.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/E.L._Todd/Spark_(Electric_Series_#2)_-_E._L._Todd.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/E.L._Todd/Spark_(Electric_Series_#2)_-_E._L._Todd.epub"
+    },
+    {
+      "id": 32734333,
+      "title": "American King",
+      "url": "upload\\Sierra_Simone\\American_King_(New_Camelot_#3)_-_Sierra_Simone.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Sierra_Simone/American_King_(New_Camelot_#3)_-_Sierra_Simone.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Sierra_Simone/American_King_(New_Camelot_#3)_-_Sierra_Simone.epub"
+    },
+    {
+      "id": 33410373,
+      "title": "Ray of Hope",
+      "url": "upload\\E.L._Todd\\Ray_of_Hope_(Ray_#2)_-_E._L._Todd.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/E.L._Todd/Ray_of_Hope_(Ray_#2)_-_E._L._Todd.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/E.L._Todd/Ray_of_Hope_(Ray_#2)_-_E._L._Todd.epub"
+    },
+    {
+      "id": 33413012,
+      "title": "Ray of Love",
+      "url": "upload\\E.L._Todd\\Ray_of_Love_(Ray_#3)_-_E._L._Todd.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/E.L._Todd/Ray_of_Love_(Ray_#3)_-_E._L._Todd.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/E.L._Todd/Ray_of_Love_(Ray_#3)_-_E._L._Todd.epub"
+    },
+    {
+      "id": 33643772,
+      "title": "Ruckus",
+      "url": "upload\\L.J._Shen\\Ruckus_(Sinners_of_Saint_#2)_-_L.J._Shen.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/L.J._Shen/Ruckus_(Sinners_of_Saint_#2)_-_L.J._Shen.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/L.J._Shen/Ruckus_(Sinners_of_Saint_#2)_-_L.J._Shen.epub"
+    },
+    {
+      "id": 33820974,
+      "title": "Ray of Time",
+      "url": "upload\\E.L._Todd\\Ray_of_Time_(Ray_#4)_-_E._L._Todd.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/E.L._Todd/Ray_of_Time_(Ray_#4)_-_E._L._Todd.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/E.L._Todd/Ray_of_Time_(Ray_#4)_-_E._L._Todd.epub"
+    },
+    {
+      "id": 33829364,
+      "title": "Bear to Love",
+      "url": "upload\\Amy_Lamont\\Bear_to_Love__Kodiak_Den_#3_(Al_-_Amy_Lamont.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Amy_Lamont/Bear_to_Love__Kodiak_Den_#3_(Al_-_Amy_Lamont.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Amy_Lamont/Bear_to_Love__Kodiak_Den_#3_(Al_-_Amy_Lamont.epub"
+    },
+    {
+      "id": 34220579,
+      "title": "Magnus Chase and the Gods of Asgard",
+      "url": "upload\\Rick_Riordan\\Magnus_Chase_and_The_Gods_of_As_-_Rick_Riordan.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Rick_Riordan/Magnus_Chase_and_The_Gods_of_As_-_Rick_Riordan.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Rick_Riordan/Magnus_Chase_and_The_Gods_of_As_-_Rick_Riordan.epub"
+    },
+    {
+      "id": 34450909,
+      "title": "Scandalous",
+      "url": "upload\\L.J._Shen\\Scandalous_(Sinners_of_Saint_#3_-_L.J._Shen.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/L.J._Shen/Scandalous_(Sinners_of_Saint_#3_-_L.J._Shen.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/L.J._Shen/Scandalous_(Sinners_of_Saint_#3_-_L.J._Shen.epub"
+    },
+    {
+      "id": 34616428,
+      "title": "Real Dirty",
+      "url": "upload\\Meghan_March\\Real_Dirty_(Real_Dirty_#1)_-_Meghan_March.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Meghan_March/Real_Dirty_(Real_Dirty_#1)_-_Meghan_March.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Meghan_March/Real_Dirty_(Real_Dirty_#1)_-_Meghan_March.epub"
+    },
+    {
+      "id": 34888887,
+      "title": "Ray of New",
+      "url": "upload\\E.L._Todd\\Ray_of_New_(Ray_#6)_-_E._L._Todd.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/E.L._Todd/Ray_of_New_(Ray_#6)_-_E._L._Todd.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/E.L._Todd/Ray_of_New_(Ray_#6)_-_E._L._Todd.epub"
+    },
+    {
+      "id": 35426576,
+      "title": "Ignite",
+      "url": "upload\\Amity_Cross\\Ignite__(#11_The_Beat_and_The_P_-_Amity_Cross.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Amity_Cross/Ignite__(#11_The_Beat_and_The_P_-_Amity_Cross.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Amity_Cross/Ignite__(#11_The_Beat_and_The_P_-_Amity_Cross.epub"
+    },
+    {
+      "id": 35506426,
+      "title": "Cross Breed",
+      "url": "upload\\Lora_Leigh\\Cross_Breed_(Breeds_#32)_-_Lora_Leigh.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Lora_Leigh/Cross_Breed_(Breeds_#32)_-_Lora_Leigh.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Lora_Leigh/Cross_Breed_(Breeds_#32)_-_Lora_Leigh.epub"
+    },
+    {
+      "id": 35613312,
+      "title": "Cross Breed",
+      "url": "upload\\Lora_Leigh\\Cross_Breed_(Breeds_#32)_-_Lora_Leigh.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Lora_Leigh/Cross_Breed_(Breeds_#32)_-_Lora_Leigh.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Lora_Leigh/Cross_Breed_(Breeds_#32)_-_Lora_Leigh.epub"
+    },
+    {
+      "id": 36400040,
+      "title": "Ignite",
+      "url": "upload\\Amity_Cross\\Ignite__(#11_The_Beat_and_the_P_-_Amity_Cross.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Amity_Cross/Ignite__(#11_The_Beat_and_the_P_-_Amity_Cross.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Amity_Cross/Ignite__(#11_The_Beat_and_the_P_-_Amity_Cross.epub"
+    },
+    {
+      "id": 38828417,
+      "title": "Beauty in Lingerie",
+      "url": "upload\\Penelope_Sky\\Beauty_in_Lingerie__Lingerie_#2_-_Penelope_Sky.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Penelope_Sky/Beauty_in_Lingerie__Lingerie_#2_-_Penelope_Sky.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Penelope_Sky/Beauty_in_Lingerie__Lingerie_#2_-_Penelope_Sky.epub"
+    },
+    {
+      "id": 39314862,
+      "title": "Divine in Lingerie",
+      "url": "upload\\Penelope_Sky\\Divine_in_Lingerie__Lingerie_#9_-_Penelope_Sky.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Penelope_Sky/Divine_in_Lingerie__Lingerie_#9_-_Penelope_Sky.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Penelope_Sky/Divine_in_Lingerie__Lingerie_#9_-_Penelope_Sky.epub"
+    },
+    {
+      "id": 39863403,
+      "title": "Dark Tribute",
+      "url": "upload\\Iris_Johansen\\Dark_Tribute_(Eve_Duncan_#24)_-_Iris_Johansen.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Iris_Johansen/Dark_Tribute_(Eve_Duncan_#24)_-_Iris_Johansen.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Iris_Johansen/Dark_Tribute_(Eve_Duncan_#24)_-_Iris_Johansen.epub"
+    },
+    {
+      "id": 40261255,
+      "title": "Sweet Liar",
+      "url": "upload\\Laurelin_Paige\\Sweet_Liar__Dirty_Sweet_#1_-_Laurelin_Paige.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Laurelin_Paige/Sweet_Liar__Dirty_Sweet_#1_-_Laurelin_Paige.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Laurelin_Paige/Sweet_Liar__Dirty_Sweet_#1_-_Laurelin_Paige.epub"
+    },
+    {
+      "id": 40512741,
+      "title": "Billionaire's Baby of Redemption",
+      "url": "upload\\Michelle_Smart\\Billionaire's_Baby_of_Redemptio_-_Michelle_Smart.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Michelle_Smart/Billionaire's_Baby_of_Redemptio_-_Michelle_Smart.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Michelle_Smart/Billionaire's_Baby_of_Redemptio_-_Michelle_Smart.epub"
+    },
+    {
+      "id": 41583472,
+      "title": "Dancer in Lingerie",
+      "url": "upload\\Penelope_Sky\\Dancer_in_Lingerie__Lingerie_#1_-_Penelope_Sky.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Penelope_Sky/Dancer_in_Lingerie__Lingerie_#1_-_Penelope_Sky.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Penelope_Sky/Dancer_in_Lingerie__Lingerie_#1_-_Penelope_Sky.epub"
+    },
+    {
+      "id": 42196325,
+      "title": "The Xoe Meyers Series #1-3",
+      "url": "upload\\Sara_C._Roethle\\The_Xoe_Meyers_Series_#1-3_-_Sara_C._Roethle.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Sara_C._Roethle/The_Xoe_Meyers_Series_#1-3_-_Sara_C._Roethle.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Sara_C._Roethle/The_Xoe_Meyers_Series_#1-3_-_Sara_C._Roethle.epub"
+    },
+    {
+      "id": 43185790,
+      "title": "The Banker",
+      "url": "upload\\Penelope_Sky\\The_Banker__Banker_#1_-_Penelope_Sky.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Penelope_Sky/The_Banker__Banker_#1_-_Penelope_Sky.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Penelope_Sky/The_Banker__Banker_#1_-_Penelope_Sky.epub"
+    },
+    {
+      "id": 43185922,
+      "title": "The Dictator",
+      "url": "upload\\Penelope_Sky\\The_Dictator__Banker_#2_-_Penelope_Sky.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Penelope_Sky/The_Dictator__Banker_#2_-_Penelope_Sky.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Penelope_Sky/The_Dictator__Banker_#2_-_Penelope_Sky.epub"
+    },
+    {
+      "id": 43472541,
+      "title": "Nanny met passie: Biljonairs en baby's (Intiem Special Book 1861)",
+      "url": "upload\\Day_Leclaire\\Baby_Nanny__Book_#4_(Baby,_Oh_B_-_Day_Leclaire.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Day_Leclaire/Baby_Nanny__Book_#4_(Baby,_Oh_B_-_Day_Leclaire.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Day_Leclaire/Baby_Nanny__Book_#4_(Baby,_Oh_B_-_Day_Leclaire.epub"
+    },
+    {
+      "id": 55971408,
+      "title": "Dirty Girl",
+      "url": "upload\\Meghan_March\\Dirty_Girl_(Dirty_Girl_Duet_#1)_-_Meghan_March.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Meghan_March/Dirty_Girl_(Dirty_Girl_Duet_#1)_-_Meghan_March.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Meghan_March/Dirty_Girl_(Dirty_Girl_Duet_#1)_-_Meghan_March.epub"
+    },
+    {
+      "id": 55971481,
+      "title": "Dirty Love",
+      "url": "upload\\Meghan_March\\Dirty_Love_(Dirty_Girl_Duet_#2)_-_Meghan_March.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Meghan_March/Dirty_Love_(Dirty_Girl_Duet_#2)_-_Meghan_March.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Meghan_March/Dirty_Love_(Dirty_Girl_Duet_#2)_-_Meghan_March.epub"
+    },
+    {
+      "id": 55971507,
+      "title": "Real Dirty",
+      "url": "upload\\Meghan_March\\Real_Dirty_(Real_Dirty_#1)_-_Meghan_March.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Meghan_March/Real_Dirty_(Real_Dirty_#1)_-_Meghan_March.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Meghan_March/Real_Dirty_(Real_Dirty_#1)_-_Meghan_March.epub"
+    },
+    {
+      "id": 56663329,
+      "title": "Better Off Dead",
+      "url": "upload\\Lee_Child\\Better_Off_Dead_-_Lee_Child.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Lee_Child/Better_Off_Dead_-_Lee_Child.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Lee_Child/Better_Off_Dead_-_Lee_Child.epub"
+    },
+    {
+      "id": 59754583,
+      "title": "Us",
+      "url": "upload\\Sarina_Bowen\\Us_(Him_#2)_-_Sarina_Bowen.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Sarina_Bowen/Us_(Him_#2)_-_Sarina_Bowen.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Sarina_Bowen/Us_(Him_#2)_-_Sarina_Bowen.epub"
+    },
+    {
+      "id": 60113062,
+      "title": "Savage Fire",
+      "url": "upload\\Kathleen_Kelly\\Savage_Fire_(Savage_Angels_MC_#_-_Kathleen_Kelly.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Kathleen_Kelly/Savage_Fire_(Savage_Angels_MC_#_-_Kathleen_Kelly.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Kathleen_Kelly/Savage_Fire_(Savage_Angels_MC_#_-_Kathleen_Kelly.epub"
+    },
+    {
+      "id": 62035004,
+      "title": "I, Marcus: The Traveler’s Journal, Volume 1 of 3",
+      "url": "upload\\Tom_Abrahams\\I,_Marcus_#1_-_Tom_Abrahams.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Tom_Abrahams/I,_Marcus_#1_-_Tom_Abrahams.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Tom_Abrahams/I,_Marcus_#1_-_Tom_Abrahams.epub"
+    },
+    {
+      "id": 62332825,
+      "title": "I, Marcus: The Traveler's Journal, Volume 2 of 3",
+      "url": "upload\\Tom_Abrahams\\I,_Marcus_#2_-_Tom_Abrahams.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Tom_Abrahams/I,_Marcus_#2_-_Tom_Abrahams.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Tom_Abrahams/I,_Marcus_#2_-_Tom_Abrahams.epub"
+    },
+    {
+      "id": 63066073,
+      "title": "Modern Box Set 5-8 Nov 2022/Their Dubai Marriage Makeover/A Week with the Forbidden Greek/Snowbound in Her Boss's Bed/The Prince's Pregnant Secretary",
+      "url": "upload\\Cathy_Williams\\A_Week_With_The_Forbidden_Greek_-_Cathy_Williams.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Cathy_Williams/A_Week_With_The_Forbidden_Greek_-_Cathy_Williams.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Cathy_Williams/A_Week_With_The_Forbidden_Greek_-_Cathy_Williams.epub"
+    },
+    {
+      "id": 237669711,
+      "title": "Witch World",
+      "url": "upload\\Andre_Norton\\Witch_World_(Estcarp_Cycle_#1)_-_Andre_Norton.epub",
+      "checked_url": "https://sflatransport.com/kbooks/upload/Andre_Norton/Witch_World_(Estcarp_Cycle_#1)_-_Andre_Norton.epub",
+      "http_status": 404,
+      "resolved_path": "/home1/sflatran/public_html/kbooks/public/upload/Andre_Norton/Witch_World_(Estcarp_Cycle_#1)_-_Andre_Norton.epub"
+    }
+  ]
+}
