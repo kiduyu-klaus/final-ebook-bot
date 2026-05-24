@@ -1432,7 +1432,7 @@ def cmd_settings(msg: types.Message):
         f"<b>Preferences</b>\n"
         f"• /myhistory — View download history\n"
         f"• /mybooks — Manage bookmarked books\n"
-        f"• /searchhistory <keyword> — Search your history\n\n"
+        f"• /searchhistory &lt;keyword&gt; — Search your history\n\n"
         f"<b>About</b>\n"
         f"Use the menu buttons below for quick access to all commands."
     )
