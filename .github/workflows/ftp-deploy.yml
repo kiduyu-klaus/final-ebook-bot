@@ -1,0 +1,38 @@
+name: Deploy to cPanel via FTP
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  ftp-deploy:
+    name: Upload changed files to server
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0        # full history so we can diff against the last deploy
+
+      - name: Deploy changed files via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server:            ${{ secrets.FTP_HOST }}
+          username:          ${{ secrets.FTP_USERNAME }}
+          password:          ${{ secrets.FTP_PASSWORD }}
+          server-dir:        /final_ebook_bot/
+          local-dir:         ./
+          dangerous-clean-slate: false   # never wipe the remote — only upload changes
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/__pycache__/**
+            **/*.pyc
+            .github/**
+            logs/**
+            tmp/**
+            backups/**
+            books_index.json
