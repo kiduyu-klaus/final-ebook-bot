@@ -413,6 +413,7 @@ def _build_quick_menu_keyboard(telegram_user_id: Optional[int] = None):
         types.KeyboardButton("🏷 Subcategories"),
         types.KeyboardButton("📥 My History"),
         types.KeyboardButton("🔖 My Books"),
+        types.KeyboardButton("⚙️ Settings"),
     )
 
     if telegram_user_id and ADMIN_IDS and telegram_user_id in ADMIN_IDS:
@@ -432,6 +433,7 @@ _MENU_LABEL_TO_COMMAND = {
     "🏷 Subcategories": "/list_subcategories",
     "📥 My History": "/myhistory",
     "🔖 My Books": "/mybooks",
+    "⚙️ Settings": "/settings",
     "🔄 Reindex": "/reindex",
     "🩺 Check Ebooks": "/check_ebooks",
 }
@@ -464,6 +466,8 @@ def _dispatch_quick_menu_label(msg: types.Message) -> bool:
         cmd_myhistory(msg)
     elif command == "/mybooks":
         cmd_mybooks(msg)
+    elif command == "/settings":
+        cmd_settings(msg)
     elif command == "/reindex":
         cmd_reindex(msg)
     elif command == "/check_ebooks":
@@ -1392,6 +1396,45 @@ def cmd_mybooks(msg: types.Message):
         parse_mode="HTML",
         reply_markup=keyboard,
         disable_web_page_preview=True,
+    )
+
+
+@bot.message_handler(commands=["settings"])
+def cmd_settings(msg: types.Message):
+    """Show user settings and preferences."""
+    if not msg.from_user:
+        return
+
+    # Ensure user is registered
+    user = _ensure_user_registered(msg)
+
+    if not _check_user_access(msg):
+        return
+
+    user_id = msg.from_user.id
+
+    # Get user stats
+    download_count = get_user_download_count(user_id)
+    bookmark_count = get_bookmark_count(user_id)
+
+    settings_text = (
+        f"<b>⚙️ Settings</b>\n\n"
+        f"<b>Your Stats</b>\n"
+        f"📥 Total Downloads: <b>{download_count}</b>\n"
+        f"🔖 Bookmarked Books: <b>{bookmark_count}</b>\n\n"
+        f"<b>Preferences</b>\n"
+        f"• /myhistory — View download history\n"
+        f"• /mybooks — Manage bookmarked books\n"
+        f"• /searchhistory <keyword> — Search your history\n\n"
+        f"<b>About</b>\n"
+        f"Use the menu buttons below for quick access to all commands."
+    )
+
+    bot.send_message(
+        msg.chat.id,
+        settings_text,
+        parse_mode="HTML",
+        reply_markup=_build_quick_menu_keyboard(msg.from_user.id),
     )
 
 
@@ -2733,6 +2776,7 @@ def _register_commands() -> None:
         types.BotCommand("myhistory",          "View your download history"),
         types.BotCommand("searchhistory",       "Search your download history"),
         types.BotCommand("mybooks",           "View your bookmarked books"),
+        types.BotCommand("settings",           "View your settings & stats"),
         types.BotCommand("reindex",            "Re-scan the EPUB folder (admin)"),
         types.BotCommand("check_ebooks",      "Check all DB books for missing files (admin)"),
         types.BotCommand("help",              "Show usage instructions"),
